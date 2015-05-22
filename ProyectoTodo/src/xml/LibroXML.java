@@ -29,12 +29,14 @@ public class LibroXML extends DefaultHandler{
 	        
 	      // Si la etiqueta es libro leemos el atributo isbn  
 	      if(localName.equals("libro")){  
+	    	  this.libro = new Libro();
 	         String isbn = attributes.getValue("isbn");  
 	         // Lo guardamos en el objeto libro  
 	         libro.setIsbn(isbn);  
 	      }  
 	   }  
-	     
+	   
+	   
 	   @Override  
 	   public void characters(char[] ch, int start, int length)  
 	         throws SAXException {  
@@ -49,14 +51,15 @@ public class LibroXML extends DefaultHandler{
 	      // Según la etiqueta guardamos el valor leido   
 	      // en una propiedad del objeto libro  
 		 //  System.out.println(name);
-	      if (localName.equals("titulo")){  
+	      if (localName.equals("titulo")){ 
+	    	 // System.out.println(this.libro.getIsbn()+ " XXXXXX");
 	         libro.setTitulo(valor);  
 	      }else if (localName.equals("autor")){  
-	         libro.setAutor(valor);  
-	      }else if (localName.equals("anyo")){  
+	         libro.setAutor(valor); 
+	      }else if (localName.equals("anyo")){
 	         libro.setAnyo(valor);  
 	      }else if (localName.equals("editorial")){  
-	         libro.setEditorial(valor); 
+	         libro.setEditorial(valor);
 	         this.hasMapLibros.put(this.libro.getIsbn(), this.libro);
 	         
 	      }  
