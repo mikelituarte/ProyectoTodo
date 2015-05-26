@@ -14,8 +14,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 public class ProcesoSAX {
 
-	public static void main(String[] args) {  
+	public static void main(String[] args) throws ErrorHandlerLibros{  
 		 Libro libro = new Libro(); 
+		 //Libro libro = null; 
          LibroXML libroXML = new LibroXML(libro);
 	      try {  
 	         // Creamos nuestro objeto libro vacío  
@@ -29,12 +30,17 @@ public class ProcesoSAX {
 	         reader.parse(new InputSource(new FileInputStream("libros.xml")));  
 	         
 	        // System.out.println(libro.toString()); 
+	         
 	         System.out.println(libroXML.getHasMapLibros());
-	      } catch (SAXException e) {  
+	      }
+
+	      catch (SAXException e) {  
 	         e.printStackTrace();  
 	      } catch (IOException e) {  
 	         e.printStackTrace();  
 	      }  
+
+
 	  
 	   }  
 }

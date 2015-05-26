@@ -3,7 +3,7 @@ package xml;
 
 import java.util.HashMap;
 
-public class Libro {
+public class Libro implements Comparable<Libro> {
 	   private String isbn;  
 	   private String titulo;  
 	   private String autor ;  
@@ -88,6 +88,15 @@ public class Libro {
 	        
 	      return sb.toString();  
 	   }
+
+	@Override
+	public int compareTo(Libro arg0) {
+		// TODO Auto-generated method stub
+		return this.titulo.compareTo(arg0.getTitulo());
+	}
+	   
+	   
+	
 
 
 	     

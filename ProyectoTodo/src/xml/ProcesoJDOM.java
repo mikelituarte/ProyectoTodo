@@ -44,11 +44,21 @@ public class ProcesoJDOM {
 		
 		//AÑADO UN NUEVO HIJO
 		Element padre = documentJDOM.getRootElement();
+		Element padre2 = documentJDOM.getRootElement();
 	    // Creamos una nueva etiqueta  
 	    Element nuevolibro = new Element("libro");  
+	    Element nuevoHijo = new Element("libro");
+	    Element titulo = new Element("titulo");
 	    // Añadimos un atributo  
-	    nuevolibro.setAttribute("isbn", "xxxx-yyyy");  
-	    padre.addContent(nuevolibro);  
+	    nuevolibro.setAttribute("isbn", "xxxx-yyyy");
+	    nuevoHijo.setAttribute("isbn", "AAABBB");
+	   
+	    nuevoHijo.addContent(titulo);
+	    titulo.addContent("Mi titulo");
+	    
+	    padre2.addContent(nuevoHijo);
+	    padre.addContent(nuevolibro); 
+	    
 
 	    
 	   //SERIALIZO EL DOCUMENT A UN FICHERO DE SALIDA

@@ -6,17 +6,21 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.sun.xml.internal.bind.v2.model.core.ErrorHandler;
+import com.sun.xml.internal.bind.v2.runtime.IllegalAnnotationException;
+
 
 //Manejador
 public class LibroXML extends DefaultHandler{
-	 private String valor = null;  
+	  private String valor = null;  
      
 	   private Libro libro; 
-	   private  HashMap<String, Libro> hasMapLibros;
-	     
+	 //  private  HashMap<String, Libro> hasMapLibros;
+	   private  ToStringHasMpLibros hasMapLibros;
 	   public LibroXML(Libro libro){  
 	      this.libro=libro;  
-	      this.hasMapLibros = new HashMap<String, Libro>();
+	      this.hasMapLibros = new ToStringHasMpLibros();
+	      //this.hasMapLibros = new HashMap<String, Libro>();
 
 	   }  
 	     
@@ -47,7 +51,7 @@ public class LibroXML extends DefaultHandler{
 	  
 	   @Override  
 	   public void endElement(String uri, String localName, String name)  
-	         throws SAXException {  
+	         throws SAXException {
 	      // Según la etiqueta guardamos el valor leido   
 	      // en una propiedad del objeto libro  
 		 //  System.out.println(name);
@@ -63,11 +67,15 @@ public class LibroXML extends DefaultHandler{
 	         this.hasMapLibros.put(this.libro.getIsbn(), this.libro);
 	         
 	      }  
+		   
+
 	        
 	   } 
 	   
 	   public HashMap<String, Libro> getHasMapLibros(){
 		   return this.hasMapLibros;
 	   }
+
+
 	  
 	}  
