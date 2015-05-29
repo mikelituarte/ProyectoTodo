@@ -34,6 +34,16 @@ public class Persona implements Serializable, Comparable<Persona> {
 		this.nombre = nombre;
 	}
 	
+	public boolean isMAyorEdad(){
+		boolean res = false;
+		
+		if(this.edad>17){
+			res = true;
+		}
+		
+		return res;
+	}
+	
 	@Override
 	public String toString() {
 		return this.nombre + " " + this.edad;

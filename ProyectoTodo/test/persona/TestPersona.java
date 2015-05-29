@@ -64,5 +64,11 @@ public class TestPersona {
 		Persona persona2 = new Persona("CCC", 2);
 		assertEquals("Deberia dar 1", 1, persona.compareTo(persona2));
 	}
+	
+	@Test
+	public void testEsMayorEdad(){
+		Persona p = new Persona("DDD", 18);
+		assertThat(p, new EsPersonaMayorEdad());
+	}
 
 }
