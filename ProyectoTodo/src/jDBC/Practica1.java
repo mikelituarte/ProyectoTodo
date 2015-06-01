@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.Iterator;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 
 public class Practica1 {
 

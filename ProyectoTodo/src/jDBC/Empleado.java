@@ -1,8 +1,6 @@
 package jDBC;
 
-import java.util.ArrayList;
 
-import persona.Persona;
 
 public class Empleado implements Comparable<Empleado> {
 
