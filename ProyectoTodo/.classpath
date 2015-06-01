@@ -10,5 +10,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Users/alumno/Desktop/Mikel/log4j/log4j-all-1.3alpha-8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/alumno/Desktop/Mikel/Curso703/ojdbc14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
