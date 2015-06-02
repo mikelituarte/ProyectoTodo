@@ -8,13 +8,8 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.Iterator;
 
+public class Practica1Try {
 
-
-public class Practica1 {
-
-	
-	
-	
 	public static Statement conectarBBDD(Connection conn) throws ClassNotFoundException, SQLException{
 		conn = null;
 		Statement stmt = null;
@@ -34,9 +29,9 @@ public class Practica1 {
 	public static void main(String[] args) {
 		
 		
-		Connection conn = null;
-		ResultSet rset = null;
-		Statement stmt = null;
+		//Connection conn = null;
+		//ResultSet rset = null;
+		//Statement stmt = null;
 		
 		String employee_id;
 		String first_name;
@@ -53,15 +48,9 @@ public class Practica1 {
 		Empleado empleado;
 		ListaEmpleados le = new ListaEmpleados();
 		
-		
-		try
+		String consulta = "SELECT * FROM employees WHERE salary > 3000 ORDER BY salary DESC";
+		try(Connection conn = null;  Statement stmt = conectarBBDD(conn); ResultSet rset = stmt.executeQuery(consulta);)
 		{
-			
-			stmt = conectarBBDD(conn); //Establecemos la conexion con la BBDD
-			rset = stmt.executeQuery(" SELECT * " +
-					                 " FROM employees " +
-					                 " WHERE salary > 3000 " +
-					                 " ORDER BY salary DESC "); //Realizamos la Consulta 
 			while (rset.next()){//Iteramos sobre cada empleado devuelto en la consulta
 				employee_id = rset.getString(1);
 				first_name= rset.getString(2);
@@ -90,13 +79,13 @@ public class Practica1 {
 		{
 			e.printStackTrace();
 		}
-		finally //libero recursos, de "adentro a fuera" , ResultSet, Statment, Conexion
+	/*	finally //libero recursos, de "adentro a fuera" , ResultSet, Statment, Conexion
 		{
 			if (rset != null) 	{ try { rset.close(); } catch (Exception e2) { e2.printStackTrace(); }}
 			if (stmt != null)	{ try {	stmt.close(); } catch (Exception e2) { e2.printStackTrace(); }}
 			if (conn != null) 	{ try { conn.close(); } catch (Exception e3) { e3.printStackTrace(); }}
 		  	   
-		}   
+		}   */
 	}
 	
 }
