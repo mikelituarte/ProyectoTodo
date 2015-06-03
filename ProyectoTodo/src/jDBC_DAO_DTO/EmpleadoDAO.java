@@ -15,6 +15,8 @@ public class EmpleadoDAO {
 		//Conexion conn = new Conexion(this.driver, this.bbdd, this.usuario, this.pass);//establezco la conexion
 		Conexion conn = new Conexion();//establezco la conexion
 		//Hago el Resulset con la consulta que esta en la clase InstruccionesSQL
+		
+	
 		conn.setRset((conn.conectar()).executeQuery(InstruccionesSQL.consultaSueldo));
 		EmpleadoDTO empleadoDTO = null;
 		String employee_id;
@@ -48,7 +50,7 @@ public class EmpleadoDAO {
 		}
 		
 		conn.liberarRecursos();
-		
+
 		return  leDTO;
 	}
 }

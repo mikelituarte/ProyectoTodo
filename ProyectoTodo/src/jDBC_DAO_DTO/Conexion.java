@@ -21,6 +21,7 @@ public class Conexion {
 	private Connection conn;
 	private Statement stmt;
 	private ResultSet rset;
+	private static Savepoint sp;
 	
 
 	/*private Conexion(){
@@ -49,6 +50,18 @@ public class Conexion {
 			this.conn.rollback(sp);
 		}
 		return this.stmt;
+	}
+	
+	public  void savePoint() throws SQLException{
+		this.sp = this.conn.setSavepoint();
+	}
+	
+	public void commit() throws SQLException{
+		this.conn.commit();
+	}
+	
+	public void rollBack() throws SQLException{
+		this.conn.rollback(sp);
 	}
 	
 	public void liberarRecursos(){
