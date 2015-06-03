@@ -8,7 +8,7 @@ public class Main {
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		ArrayList<RegionDTO> lrDTO = null;
-		RegionDTO regionDTO2 = new RegionDTO(5, "Narmia") ;
+		RegionDTO regionDTO2 = new RegionDTO(7, "Yucatan") ;
 		
 		System.out.println("Mostrar Region dado un ID");
 		RegionDTO regionDTO = RegionDAO.recuperarRegionPorID(1);

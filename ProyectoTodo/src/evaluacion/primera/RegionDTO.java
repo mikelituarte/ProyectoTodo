@@ -1,6 +1,6 @@
 package evaluacion.primera;
 
-public class RegionDTO {
+public class RegionDTO implements Comparable<RegionDTO> {
 
 	private int region_id;
 	private String region_name;
@@ -42,7 +42,11 @@ public class RegionDTO {
 		this.region_name = region_name;
 	}
 	
-	
+	@Override
+	public int compareTo(RegionDTO arg0) {
+		// TODO Auto-generated method stub
+		return this.region_id - arg0.getRegion_id();
+	}
 	
 	
 }
