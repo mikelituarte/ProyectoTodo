@@ -4,16 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class RegionDAO {
 
 	
-	private RegionDTO formarRegion(ResultSet rset){
-		RegionDTO regionDTO = null;
-		return regionDTO;
-	}
 	
 	/**
 	 * Dado un Id de Region, retorna una RegionDTO 
@@ -29,7 +26,6 @@ public class RegionDAO {
 		String region_name = null;
 
 		Connection nuevaConexion = Conexion.obtenerConexion();
-		//PreparedStatement pstm = nuevaConexion.prepareStatement("SELECT * FROM REGIONS WHERE region_id = ?");
 		PreparedStatement pstm = nuevaConexion.prepareStatement(InstruccionesSQL.CONSULTAR_REGION_POR_ID);
 		pstm.setInt(1, id_region);
 		rset = pstm.executeQuery();
@@ -58,7 +54,6 @@ public class RegionDAO {
 		ArrayList<RegionDTO> lrDTO = new ArrayList<RegionDTO>();
 
 		Connection nuevaConexion = Conexion.obtenerConexion();
-		//PreparedStatement pstm = nuevaConexion.prepareStatement("SELECT * FROM REGIONS WHERE region_id = ?");
 		Statement stm = nuevaConexion.createStatement();
 		rset = stm.executeQuery(InstruccionesSQL.CONSULTAR_REGIONES);
 		while(rset.next()){
@@ -84,15 +79,23 @@ public class RegionDAO {
 	public static boolean insertarRegion(RegionDTO regionDTO) throws ClassNotFoundException, SQLException{
 		ResultSet rset = null;
 		boolean exito = true;
+		Savepoint sp = null;
+		Connection nuevaConexion = null;
+		PreparedStatement pstm = null;
 		
 		if(recuperarRegionPorID(regionDTO.getRegion_id()) == null){
-			Connection nuevaConexion = Conexion.obtenerConexion();
-			//PreparedStatement pstm = nuevaConexion.prepareStatement("SELECT * FROM REGIONS WHERE region_id = ?");
-			PreparedStatement pstm = nuevaConexion.prepareStatement(InstruccionesSQL.INSERTAR_REGION);
-			pstm.setInt(1, regionDTO.getRegion_id());
-			pstm.setString(2, regionDTO.getRegion_name());
-			pstm.execute();
-			//comprobar que existe la region
+			try{
+				nuevaConexion = Conexion.obtenerConexion();
+				sp = nuevaConexion.setSavepoint();
+				nuevaConexion.setAutoCommit(false);
+				pstm = nuevaConexion.prepareStatement(InstruccionesSQL.INSERTAR_REGION);
+				pstm.setInt(1, regionDTO.getRegion_id());
+				pstm.setString(2, regionDTO.getRegion_name());
+				pstm.execute();
+			}
+			catch(Exception e){
+				nuevaConexion.rollback(sp);
+			}
 			Conexion.liberarRecursos(nuevaConexion, pstm, rset);
 		}
 		else{

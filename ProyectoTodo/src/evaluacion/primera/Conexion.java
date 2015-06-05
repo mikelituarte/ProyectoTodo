@@ -13,12 +13,6 @@ import java.sql.Statement;
 //import org.apache.log4j.Logger;
 
 public class Conexion {
-
-	
-	//private static Conexion conexion = new Conexion();
-	//private Connection connection;
-	//private final String RUTA_PROPERTIES = "db.properties";
-	//private Logger log = Logger.getLogger("mylog");
 	
 	private final static String driver = "oracle.jdbc.driver.OracleDriver";;
 	private final static String bbdd = "jdbc:oracle:thin:@localhost:1521:xe";

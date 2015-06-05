@@ -14,7 +14,6 @@ public class RegionDTO implements Comparable<RegionDTO> {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		String res = "----------------------\n";
 		res += "region_id: " + this.region_id + "\n";
 		res += "region_name: " + this.region_name + "\n";
@@ -24,7 +23,6 @@ public class RegionDTO implements Comparable<RegionDTO> {
 	
 	@Override
 	public boolean equals(Object arg0) {
-		// TODO Auto-generated method stub
 		RegionDTO  rgDTO = (RegionDTO)arg0;
 		return (this.region_id == rgDTO.getRegion_id() && this.region_name.equals(rgDTO.getRegion_name()));
 	}
@@ -51,7 +49,6 @@ public class RegionDTO implements Comparable<RegionDTO> {
 	
 	@Override
 	public int compareTo(RegionDTO arg0) {
-		// TODO Auto-generated method stub
 		return this.region_id - arg0.getRegion_id();
 	}
 	

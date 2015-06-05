@@ -3,9 +3,7 @@ package evaluacion.primera;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-import javafx.scene.layout.Region;
 
 import org.junit.Test;
 
