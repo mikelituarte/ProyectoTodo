@@ -104,6 +104,10 @@ public class RegionDAO {
 		return exito;
 	}
 	
+	//Actualizar
+
+	//borrar
+	
 	
 	
 }
