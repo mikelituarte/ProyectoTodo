@@ -8,17 +8,28 @@ public class Main {
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		ArrayList<RegionDTO> lrDTO = null;
-		RegionDTO regionDTO2 = new RegionDTO(7, "Yucatan") ;
+		RegionDTO regionDTO2 = new RegionDTO(8, "MiRegion") ;
+		int id_region =7;
+		boolean insertar = false;
 		
-		System.out.println("Mostrar Region dado un ID");
-		RegionDTO regionDTO = RegionDAO.recuperarRegionPorID(1);
-		System.out.println(regionDTO);
-		System.out.println("Mostramos la lista de Regiones:");
-		lrDTO = RegionDAO.recuperarRegiones();
-		System.out.println(lrDTO);
-		System.out.println("Mostramos la lista Añadiendo Regione:");
-		RegionDAO.insertarRegion(regionDTO2);
-		System.out.println("Mostramos la lista Añadiendo una region -XXXXXXXXXXXXXXXXXXXXXxx");
+		System.out.println("----------   Mostrar Region dado un ID ----------- ");
+		RegionDTO regionDTO = RegionDAO.recuperarRegionPorID(id_region);
+		if (regionDTO == null)
+			System.out.println("No existe la region con el ID " + id_region);
+		else
+			System.out.println(regionDTO);
+
+		
+		System.out.println("-------------Insertamos una regin que ya existe -----------------");
+		insertar = RegionDAO.insertarRegion(regionDTO2);
+		if(!insertar){
+			System.out.println("La region ya existe");
+		}
+		else{
+			System.out.println("La region ha sido insertada correctamente \n");
+		}
+		 
+	    System.out.println("------------------ Mostramos todas las regiones ----------------------");
 		lrDTO = RegionDAO.recuperarRegiones();
 		System.out.println(lrDTO);
 		

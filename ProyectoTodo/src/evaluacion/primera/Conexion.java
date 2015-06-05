@@ -1,18 +1,16 @@
 package evaluacion.primera;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.sql.Connection;
-import java.sql.Driver;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 
-import org.apache.log4j.Logger;
+
+//import org.apache.log4j.Logger;
 
 public class Conexion {
 
@@ -34,6 +32,12 @@ public class Conexion {
 			
 	}
 	
+	/**
+	 * Establece la conexion con la Base de Datos
+	 * @return Devuelve la Conection con la base de datos
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static Connection obtenerConexion () throws ClassNotFoundException, SQLException
 	{
 		Connection conn;
@@ -42,6 +46,12 @@ public class Conexion {
 		return conn;
 	}
 	
+	/**
+	 * Libera la conexion
+	 * @param conn
+	 * @param pstmt
+	 * @param rset
+	 */
 	public static void liberarRecursos (Connection conn, PreparedStatement pstmt, ResultSet rset)
 	{
 		if (rset != null) 	{ try { rset.close(); } catch (Exception e2) { e2.printStackTrace(); }}
@@ -49,7 +59,7 @@ public class Conexion {
 		if (conn != null) 	{ try { conn.close(); } catch (Exception e3) { e3.printStackTrace(); }}
 	}
 	
-	public static void liberarRecursos2 (Connection conn, Statement stmt, ResultSet rset)
+	public static void liberarRecursos (Connection conn, Statement stmt, ResultSet rset)
 	{
 		if (rset != null) 	{ try { rset.close(); } catch (Exception e2) { e2.printStackTrace(); }}
 		if (stmt != null)	{ try {	stmt.close(); } catch (Exception e2) { e2.printStackTrace(); }}

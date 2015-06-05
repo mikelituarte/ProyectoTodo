@@ -12,13 +12,16 @@ public class RegionDAO {
 	
 	private RegionDTO formarRegion(ResultSet rset){
 		RegionDTO regionDTO = null;
-		
-		
-		
 		return regionDTO;
 	}
 	
-	
+	/**
+	 * Dado un Id de Region, retorna una RegionDTO 
+	 * @param id_region
+	 * @return Devuelve la Region que coincida con el ID pasado como parametro, en caso de no existir, retorna null
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static RegionDTO recuperarRegionPorID(int id_region) throws ClassNotFoundException, SQLException{
 		RegionDTO regionDTO = null;
 		ResultSet rset = null;
@@ -33,16 +36,20 @@ public class RegionDAO {
 		while(rset.next()){
 			region_id = rset.getInt(1);
 			region_name = rset.getString(2);
+			regionDTO = new RegionDTO(region_id, region_name);
 		}
-		//comprobar que existe la region
-		
-		regionDTO = new RegionDTO(region_id, region_name);
 		
 		Conexion.liberarRecursos(nuevaConexion, pstm, rset);
 		return regionDTO;
 	}
 	
 	
+	/**
+	 * Inserta todas la Regiones de la base de datos en un ArrayList
+	 * @return Retorna un ArrayList<RegionDTO> con todas las regiones de la BBDD
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static ArrayList<RegionDTO> recuperarRegiones() throws ClassNotFoundException, SQLException{
 		RegionDTO regionDTO = null;
 		ResultSet rset = null;
@@ -60,28 +67,38 @@ public class RegionDAO {
 			
 			regionDTO = new RegionDTO(region_id, region_name);
 			lrDTO.add(regionDTO);
-		}
-		//comprobar que existe la region
+		}		
 		
-		
-		
-		Conexion.liberarRecursos2(nuevaConexion, stm, rset);
+		Conexion.liberarRecursos(nuevaConexion, stm, rset);
 		return lrDTO;
 	}
-	
-	
-	public static void insertarRegion(RegionDTO regionDTO) throws ClassNotFoundException, SQLException{
-		ResultSet rset = null;
 
-		Connection nuevaConexion = Conexion.obtenerConexion();
-		//PreparedStatement pstm = nuevaConexion.prepareStatement("SELECT * FROM REGIONS WHERE region_id = ?");
-		PreparedStatement pstm = nuevaConexion.prepareStatement(InstruccionesSQL.INSERTAR_REGION);
-		pstm.setInt(1, regionDTO.getRegion_id());
-		pstm.setString(2, regionDTO.getRegion_name());
-		pstm.execute();
-		//comprobar que existe la region
+	
+	/**
+	 * Inserta la region dada como parametro, en caso de ya existir su ID no inserta nada
+	 * @param regionDTO
+	 * @return Retorna TRUE si se ha insertado correctamente la region, False en caso contrario
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public static boolean insertarRegion(RegionDTO regionDTO) throws ClassNotFoundException, SQLException{
+		ResultSet rset = null;
+		boolean exito = true;
 		
-		Conexion.liberarRecursos(nuevaConexion, pstm, rset);
+		if(recuperarRegionPorID(regionDTO.getRegion_id()) == null){
+			Connection nuevaConexion = Conexion.obtenerConexion();
+			//PreparedStatement pstm = nuevaConexion.prepareStatement("SELECT * FROM REGIONS WHERE region_id = ?");
+			PreparedStatement pstm = nuevaConexion.prepareStatement(InstruccionesSQL.INSERTAR_REGION);
+			pstm.setInt(1, regionDTO.getRegion_id());
+			pstm.setString(2, regionDTO.getRegion_name());
+			pstm.execute();
+			//comprobar que existe la region
+			Conexion.liberarRecursos(nuevaConexion, pstm, rset);
+		}
+		else{
+			exito = false;
+		}
+		return exito;
 	}
 	
 	

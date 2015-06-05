@@ -21,6 +21,13 @@ public class RegionDTO implements Comparable<RegionDTO> {
 		res += "----------------------\n";
 		return res;
 	}
+	
+	@Override
+	public boolean equals(Object arg0) {
+		// TODO Auto-generated method stub
+		RegionDTO  rgDTO = (RegionDTO)arg0;
+		return (this.region_id == rgDTO.getRegion_id() && this.region_name.equals(rgDTO.getRegion_name()));
+	}
 
 
 	public int getRegion_id() {
