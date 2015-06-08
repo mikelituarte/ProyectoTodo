@@ -44,23 +44,23 @@ public class MainIber
     	
     	//Ahora sí, obtengo el objeto SessionFactory, a partir de la anterior clase /servicio
     	//que ya es la clase que encapsula al Pool y demás recursos físicos
-    	SessionFactory factory = configuration.buildSessionFactory(builder.build());
+    	SessionFactory factory = configuration.buildSessionFactory(builder.build());//Solo se hace una vez en cada programa
     	
     	//Ahora ya con sesion, obtengo y manejo conexiones que me va dando SessionFactory
-    	Session session = factory.openSession();
+    	Session session = factory.openSession(); //Se hace al menos una vez
+    	//Session session = factory.getCurrentSession(); // para obtener la session actual y se hace cada vez que quiera operar sobre la BBDD
     	
     	//Me creo el POJO
     	Region region = new Region();
     	region.setRegion_id(850);;
     	region.setRegion_name("Antartida");
     	
-    	
     	Transaction transaction = null;
     	//Y procedo a guardarlo --> INICIO DE LA TRANSACCION
     	try 
     	{
-    		transaction = session.beginTransaction();
-    		session.save(region);
+    		transaction = session.beginTransaction();//pone un punto de guarda
+    		session.save(region); //hace un INSERT
     		transaction.commit();//si todo ha ido bien, persisto los cambio, los hago de verdad, no en la copia de la BD
     	}
     	catch (Exception e)
@@ -68,11 +68,10 @@ public class MainIber
     		transaction.rollback();//si algo ha ido mal, deshago la transacción
     	}
     	
-    	
     	try 
     	{
     		transaction = session.beginTransaction();
-    		@SuppressWarnings("unchecked")
+    		@SuppressWarnings("unchecked")										//la entidad es el objeto java
 			List<Region> list = session.createSQLQuery("SELECT * FROM REGIONS").addEntity(Region.class).list();
     		Iterator<Region> it = list.iterator();
     		Region rg;
@@ -90,8 +89,9 @@ public class MainIber
     	}
     	finally 
     	{
-    		session.close();//haya ido bien o mal, libero recursos!
-    		factory.close();
+    		session.disconnect();// Cada vez que termine de operar sobre la BBDD
+    		//session.close();//haya ido bien o mal, libero recursos! Solo cerrarla si se quiere eliminar la session. Al terminar todas las operaciones 
+    		//factory.close(); //solo cerrarla ya no se va a volver a usar
     	}
     	
     }

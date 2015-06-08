@@ -86,8 +86,8 @@ public class RegionDAO {
 		if(recuperarRegionPorID(regionDTO.getRegion_id()) == null){
 			try{
 				nuevaConexion = Conexion.obtenerConexion();
-				sp = nuevaConexion.setSavepoint();
 				nuevaConexion.setAutoCommit(false);
+				sp = nuevaConexion.setSavepoint();
 				pstm = nuevaConexion.prepareStatement(InstruccionesSQL.INSERTAR_REGION);
 				pstm.setInt(1, regionDTO.getRegion_id());
 				pstm.setString(2, regionDTO.getRegion_name());
@@ -96,7 +96,9 @@ public class RegionDAO {
 			catch(Exception e){
 				nuevaConexion.rollback(sp);
 			}
-			Conexion.liberarRecursos(nuevaConexion, pstm, rset);
+			finally{
+				Conexion.liberarRecursos(nuevaConexion, pstm, rset);
+			}
 		}
 		else{
 			exito = false;

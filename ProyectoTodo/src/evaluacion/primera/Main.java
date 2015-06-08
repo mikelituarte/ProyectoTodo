@@ -8,7 +8,7 @@ public class Main {
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		ArrayList<RegionDTO> lrDTO = null;
-		RegionDTO regionDTO2 = new RegionDTO(8, "MiRegion") ;
+		RegionDTO regionDTO2 = new RegionDTO(15, "MiRegion2") ;
 		int id_region =7;
 		boolean insertar = false;
 		
